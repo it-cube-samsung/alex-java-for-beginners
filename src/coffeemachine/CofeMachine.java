@@ -6,7 +6,7 @@ public class CofeMachine {
         ACTION, KIND, FILL
     }
 
-    public enum Cofe{
+    public enum Coffee{
         espresso, latte, cappuccino
     }
 
@@ -41,56 +41,61 @@ public class CofeMachine {
                 break;
         }
     }
-    public void make(Cofe coffe){
-        System.out.println("I have enough resources, making you a coffee!");
-        switch (coffe){
+    public void make(Coffee coffee){
+        switch (coffee){
             case espresso:
-                makeCofe(250, 0, 16, 4);
+                makeCoffee(250, 0, 16, 4);
                 break;
             case latte:
-                makeCofe(350, 75, 20, 7);
+                makeCoffee(350, 75, 20, 7);
                 break;
             case cappuccino:
-                makeCofe(200, 100, 12, 6);
+                makeCoffee(200, 100, 12, 6);
                 break;
         }
     }
-    public void makeCofe(int nWater, int nMilk, int nBeans, int money){
-        if(nWater <= this.water) {
-            if (nMilk <= this.milk) {
-                if (nBeans <= this.beans) {
-                    if (this.cups != 0) {
-                        this.water -= nWater;
-                        this.milk -= nMilk;
-                        this.beans -= nBeans;
-                        this.money += money;
-                        this.cups--;
-                    } else {
-                        System.out.println("Sorry, not enough cups!");
-                    }
-                } else {
-                    System.out.println("Sorry, not enough beans!");
-                }
-            } else {
-                System.out.println("Sorry, not enough milk!");
-            }
-        }
-        else{
+    public void makeCoffee(int nWater, int nMilk, int nBeans, int money){
+
+        if(nWater > this.water){
             System.out.println("Sorry, not enough water!");
+            return;
         }
+
+        if(nMilk > this.milk){
+            System.out.println("Sorry, not enough milk!");
+            return;
+        }
+
+        if(nBeans > this.beans){
+            System.out.println("Sorry, not enough beans!");
+            return;
+        }
+
+        if(this.cups == 0){
+            System.out.println("Sorry, not enough cups!");
+        }
+
+        System.out.println("I have enough resources, making you a coffee!");
+        this.water -= nWater;
+        this.milk -= nMilk;
+        this.beans -= nBeans;
+        this.money += money;
+        this.cups--;
     }
 
     public void buy(String kind) {
         switch (kind) {
             case "1":
-                make(Cofe.espresso);
+                make(Coffee.espresso);
                 break;
             case "2":
-                make(Cofe.latte);
+                make(Coffee.latte);
                 break;
             case "3":
-                make(Cofe.cappuccino);
+                make(Coffee.cappuccino);
                 break;
+            case "4":
+                return;
             default:
                 System.out.println("Unknown symbol.");
         }
