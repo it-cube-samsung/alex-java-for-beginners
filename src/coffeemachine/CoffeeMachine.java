@@ -1,7 +1,5 @@
 package coffeemachine;
 
-import javax.swing.*;
-
 public class CoffeeMachine {
 
     public enum Status {
@@ -30,19 +28,13 @@ public class CoffeeMachine {
 
             case ACTION:
                 switch (inner) {
-                    case "buy":
-                        this.status = Status.KIND;
-                        break;
-                    case "remaining":
-                        remaining();
-                        break;
-                    case "take":
-                        take();
-                        break;
-                    case "fill":
+                    case "buy" -> this.status = Status.KIND;
+                    case "remaining" -> remaining();
+                    case "take" -> take();
+                    case "fill" -> {
                         this.status = Status.FILL;
                         fill(inner);
-
+                    }
                 }
                 break;
 
@@ -58,49 +50,43 @@ public class CoffeeMachine {
 
     public void fill(String filledIng){
         try {
-            switch (this.ing){
-                case START:
+            switch (this.ing) {
+                case START -> {
                     System.out.println("Write how many ml of water you want to add:");
                     this.ing = Ingredients.WATER;
-                    break;
-                case WATER:
+                }
+                case WATER -> {
                     System.out.println("Write how many ml of milk you want to add:");
                     this.water += Integer.parseInt(filledIng);
                     this.ing = Ingredients.MILK;
-                    break;
-                case MILK:
+                }
+                case MILK -> {
                     System.out.println("Write how many grams of coffee beans you want to add:");
                     this.ing = Ingredients.BEANS;
                     this.milk += Integer.parseInt(filledIng);
-                    break;
-                case BEANS:
+                }
+                case BEANS -> {
                     System.out.println("Write how many disposable cups of coffee you want to add:");
                     this.ing = Ingredients.CUPS;
                     this.beans += Integer.parseInt(filledIng);
-                    break;
-                case CUPS:
+                }
+                case CUPS -> {
                     this.ing = Ingredients.START;
                     this.cups += Integer.parseInt(filledIng);
                     this.status = Status.ACTION;
-                    break;
+                }
             }
         }
-        catch (Exception e){
+        catch (Exception ignored){
 
         }
     }
 
     public void make(Coffee coffee){
-        switch (coffee){
-            case espresso:
-                makeCoffee(250, 0, 16, 4);
-                break;
-            case latte:
-                makeCoffee(350, 75, 20, 7);
-                break;
-            case cappuccino:
-                makeCoffee(200, 100, 12, 6);
-                break;
+        switch (coffee) {
+            case espresso -> makeCoffee(250, 0, 16, 4);
+            case latte -> makeCoffee(350, 75, 20, 7);
+            case cappuccino -> makeCoffee(200, 100, 12, 6);
         }
     }
 
@@ -135,17 +121,10 @@ public class CoffeeMachine {
 
     public void buy(String kind) {
         switch (kind) {
-            case "1":
-                make(Coffee.espresso);
-                break;
-            case "2":
-                make(Coffee.latte);
-                break;
-            case "3":
-                make(Coffee.cappuccino);
-                break;
-            default:
-                System.out.println("Unknown symbol.");
+            case "1" -> make(Coffee.espresso);
+            case "2" -> make(Coffee.latte);
+            case "3" -> make(Coffee.cappuccino);
+            default -> System.out.println("Unknown symbol.");
         }
     }
 

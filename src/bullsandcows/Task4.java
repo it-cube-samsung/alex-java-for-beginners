@@ -20,6 +20,7 @@ public class Task4 {
         }
 
         int turn = 1;
+        in.nextLine();
 
         int cow;
         int bull = 0;
