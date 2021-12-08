@@ -54,11 +54,11 @@ public class Task5 {
             guessNum.append(in.nextLine());
 
             for (int i = 0; i < secNum.length(); i++) {
-                for (int j = 0; j < guessNum.length(); j++) {
-                    if(secNum.charAt(i) == guessNum.charAt(j)){
-                        cow = i != j? cow + 1 : cow;
-                        bull = i == j? bull + 1 : bull;
-                    }
+                String ch = Character.toString(secNum.charAt(i));
+                if (secNum.charAt(i) == guessNum.charAt(i)) {
+                    bull += 1;
+                } else if (guessNum.indexOf(ch) >= 0) {
+                    cow += 1;
                 }
             }
 

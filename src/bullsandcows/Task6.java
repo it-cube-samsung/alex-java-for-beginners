@@ -52,7 +52,7 @@ public class Task6 {
         int turn = 1;
 
         StringBuilder helpSt = new StringBuilder();
-        helpSt.append("*".repeat(Math.max(0, length)));
+        helpSt.append("*".repeat(length));
 
         if(possibleInt > 9){
             helpSt.append(" (0 - 9, a - ").append(possibleSymbol.charAt(possibleSymbol.length() - 1)).append(").");
@@ -76,14 +76,21 @@ public class Task6 {
             cow = 0;
 
             System.out.println("Turn " + turn + ":");
-            guessNum.append(in.nextLine());
+            guessNum = new StringBuilder(in.nextLine());
 
+            System.out.println(guessNum.length());
+
+            if (guessNum.length() != secNum.length())
+            {
+                System.out.println("The length of guess number can not be longer than length of secret number!");
+                continue;
+            }
             for (int i = 0; i < secNum.length(); i++) {
-                for (int j = 0; j < guessNum.length(); j++) {
-                    if(secNum.charAt(i) == guessNum.charAt(j)){
-                        cow = i != j? cow + 1 : cow;
-                        bull = i == j? bull + 1 : bull;
-                    }
+                String ch = Character.toString(secNum.charAt(i));
+                if (secNum.charAt(i) == guessNum.charAt(i)) {
+                    bull += 1;
+                } else if (guessNum.indexOf(ch) >= 0) {
+                    cow += 1;
                 }
             }
 
@@ -101,7 +108,6 @@ public class Task6 {
             }
 
             turn++;
-            guessNum.setLength(0);
         }
 
         System.out.println("Congratulations! You guessed the secret code.");
