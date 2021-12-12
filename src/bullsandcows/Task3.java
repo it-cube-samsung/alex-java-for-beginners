@@ -16,16 +16,20 @@ public class Task3 {
 
         for (int i = 0; i < length; i++) {
             if(i == 0){
-                ranNum.append((int)(Math.random() * 10) + 1);
+                int ranDig = (int)(Math.random() * 10);
+                if(ranDig == 0){
+                    i--;
+                    continue;
+                }
+                ranNum.append(ranDig);
                 continue;
             }
             String ranDig = Integer.toString((int)(Math.random() * 10));
             if(ranNum.indexOf(ranDig) == -1){
                 ranNum.append(ranDig);
+                continue;
             }
-            else{
-                i--;
-            }
+            i--;
         }
         System.out.println("The random secret number is " + ranNum + ".");
     }
