@@ -72,8 +72,8 @@ public class Task6 {
                 continue;
             }
 
-            bull = figureGrate(secNum, guessNum)[0];
-            cow = figureGrate(secNum, guessNum)[1];
+            bull = figureBull(secNum, guessNum);
+            cow = figureCow(secNum, guessNum);
 
             printGrate(bull, cow);
 
@@ -110,17 +110,24 @@ public class Task6 {
         }
     }
 
-    static int[] figureGrate(StringBuilder secNum, StringBuilder guessNum){
-        int bull = 0;
+    static int figureCow(StringBuilder secNum, StringBuilder guessNum){
         int cow = 0;
         for (int i = 0; i < secNum.length(); i++) {
             String ch = Character.toString(secNum.charAt(i));
-            if (secNum.charAt(i) == guessNum.charAt(i)) {
-                bull += 1;
-            } else if (guessNum.indexOf(ch) >= 0) {
+            if (guessNum.indexOf(ch) >= 0 && secNum.charAt(i) != guessNum.charAt(i)) {
                 cow += 1;
             }
         }
-        return new int[]{bull, cow};
+        return cow;
     }
+    static int figureBull(StringBuilder secNum, StringBuilder guessNum){
+        int bull = 0;
+        for (int i = 0; i < secNum.length(); i++) {
+            if (secNum.charAt(i) == guessNum.charAt(i)) {
+                bull += 1;
+            }
+        }
+        return bull;
+    }
+
 }
